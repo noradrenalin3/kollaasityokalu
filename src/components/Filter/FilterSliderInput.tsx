@@ -28,18 +28,17 @@ export default function FilterControl(props: FilterControlTypeProps) {
 	const { changeFilterValue } = useImageFilterAction();
 
 	// get image filter historical values or set all to zero if none is selected
+	const defaultVal = {
+		filters: {
+			brightness: 0,
+			contrast: 0,
+			saturation: 0,
+			vibrance: 0,
+			blur: 0,
+		},
+	};
 	const selectedImage =
-		selectedImageIndex !== null
-			? images[selectedImageIndex]
-			: {
-					filters: {
-						brightness: 0,
-						contrast: 0,
-						saturation: 0,
-						vibrance: 0,
-						blur: 0,
-					},
-			  };
+		selectedImageIndex !== null ? images[selectedImageIndex] : defaultVal;
 
 	const filterTranslations: Record<string, string> = {
 		Brightness: "Kirkkaus",
