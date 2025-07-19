@@ -1,6 +1,6 @@
 import {
 	changeTab,
-	changeRatioByName,
+	changeRatio,
 	changeTemplateByIndex,
 	setCanvas,
 	setAddBorder,
@@ -16,6 +16,7 @@ import {
 	setImageFilterValue,
 } from "@/redux/selectedImageSlice";
 import type {
+	AspectRatioType,
 	ImageFilterUpdate,
 	SelectedTabType,
 	UploadedImage,
@@ -32,11 +33,11 @@ function useTabAction() {
 
 function useRatioAction() {
 	const dispatch = useAppDispatch();
-	const changeRatio = (name: string) => {
-		dispatch(changeRatioByName(name));
+	const change = (ratio: AspectRatioType) => {
+		dispatch(changeRatio(ratio));
 		dispatch(clearAllImages());
 	};
-	return { changeRatio };
+	return { changeRatio: change };
 }
 
 function useTemplateAction() {

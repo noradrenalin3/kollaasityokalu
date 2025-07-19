@@ -1,14 +1,14 @@
 import { RootStateType } from "./store";
-import { CanvasStateType, SelectedTabType } from "@/types";
+import { AspectRatioType, CanvasStateType, SelectedTabType } from "@/types";
 import { BorderSettingsType } from "@/types/border";
-import getAspectRatios from "@/utils/getAspectRatios";
+import { getAspectRatio } from "@/utils/getAspectRatios";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createSelector } from "@reduxjs/toolkit";
 import type { Canvas } from "fabric";
 
 const defaultState: CanvasStateType & BorderSettingsType = {
 	canvas: null,
-	ratio: "3:2",
+	ratio: { width: 1, height: 1 },
 	template: 0,
 	tab: "kollaasi",
 	addBorder: false,
@@ -18,12 +18,12 @@ const defaultState: CanvasStateType & BorderSettingsType = {
 
 export const canvasSlice = createSlice({
 	name: "canvas",
-	initialState: { ...defaultState, ratio: getAspectRatios()[0].name },
+	initialState: { ...defaultState, ratio: getAspectRatio() },
 	reducers: {
 		changeTemplateByIndex: (state, action: PayloadAction<number>) => {
 			state.template = action.payload;
 		},
-		changeRatioByName: (state, action: PayloadAction<string>) => {
+		changeRatio: (state, action: PayloadAction<AspectRatioType>) => {
 			state.ratio = action.payload;
 		},
 		changeTab: (state, action: PayloadAction<SelectedTabType>) => {
@@ -60,7 +60,7 @@ export const selectBorderSettings = createSelector(
 
 export const {
 	changeTemplateByIndex,
-	changeRatioByName,
+	changeRatio,
 	changeTab,
 	setCanvas,
 	setAddBorder,

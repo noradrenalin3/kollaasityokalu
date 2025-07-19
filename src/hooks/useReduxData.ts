@@ -12,13 +12,13 @@ function useCanvasConfigData() {
 	const activeTemplateIndex = useAppSelector(
 		(state: RootStateType) => state.canvas.template
 	);
-	const activeRatioName = useAppSelector(
+	const activeRatio = useAppSelector(
 		(state: RootStateType) => state.canvas.ratio
 	);
 	const activeTemplate = COLLAGE_TEMPLATES[activeTemplateIndex];
 
 	return {
-		activeRatioName,
+		activeRatio,
 		activeTemplateIndex,
 		activeTemplate,
 	};

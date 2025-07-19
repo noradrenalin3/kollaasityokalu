@@ -8,7 +8,7 @@ export default function TabButton({ id, icon }: TabItem) {
 	const { activeTab } = useTabData();
 
 	const sharedTabStyle =
-		"flex justify-center items-center transition-colors p-3";
+		"flex justify-center items-center transition-colors p-3 max-sm:py-2";
 	const inactiveTabStyle = clsx(
 		sharedTabStyle,
 		"bg-black hover:bg-neutral-950"

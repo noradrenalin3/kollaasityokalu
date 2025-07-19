@@ -1,29 +1,34 @@
-import { ASPECT_RATIOS } from "@/constants/canvasConfig";
 import { AspectRatioType } from "@/types";
 
-export default function getAspectRatios(): AspectRatioType[] {
+export function getAspectRatio(): AspectRatioType {
 	const urlParams = new URLSearchParams(window.location.search);
 	const pSize = urlParams.get("pSize");
 	if (!pSize) {
-		return ASPECT_RATIOS;
+		return { width: 1, height: 1 };
 	}
 
-	switch (pSize) {
-		case "30x40":
-			return ASPECT_RATIOS.filter(
-				(ratio) => ratio.name === "4:3" || ratio.name === "3:4"
-			);
-		case "40x60":
-		case "60x90":
-			return ASPECT_RATIOS.filter(
-				(ratio) => ratio.name === "2:3" || ratio.name === "3:2"
-			);
-		case "30x30":
-		case "40x40":
-		case "50x50":
-		case "60x60":
-			return ASPECT_RATIOS.filter((ratio) => ratio.name === "1:1");
-		default:
-			return ASPECT_RATIOS;
+	const size = parseSize(pSize);
+	if (!size) {
+		return { width: 1, height: 1 };
 	}
+	const ratio: AspectRatioType = {
+		width: size.width,
+		height: size.height,
+	};
+	return ratio;
+}
+
+function parseSize(size: string) {
+	const split = size.split("x");
+	if (split.length !== 2) {
+		return null;
+	}
+	const parsed = split.map((s) => Number(s));
+	if (parsed.some((n) => isNaN(n))) {
+		return null;
+	}
+	return {
+		width: parsed[0],
+		height: parsed[1],
+	};
 }

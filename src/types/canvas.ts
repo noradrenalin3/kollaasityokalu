@@ -31,15 +31,13 @@ export type DimensionsType = {
 };
 
 export type AspectRatioType = {
-	name: string;
-	nickname: string;
-	icon: string;
-	canvas: (w: number) => DimensionsType;
+	width: number;
+	height: number;
 };
 
 export interface CanvasStateType {
 	canvas: Canvas | null;
-	ratio: string;
+	ratio: AspectRatioType;
 	template: number;
 	tab: SelectedTabType;
 	addBorder: boolean;
